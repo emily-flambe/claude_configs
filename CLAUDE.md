@@ -39,7 +39,7 @@ Avoid the generic "AI slop" aesthetic. Make creative, distinctive choices:
 
 ## Image Analysis
 
-When analyzing images, crop or zoom into relevant regions for better accuracy. If a crop tool is available, use it to focus on specific areas rather than analyzing the full image at once.
+When analyzing images that need closer inspection, use Python with Pillow to crop regions of interest, save to `/tmp/`, and read the cropped image. Use normalized coordinates (0-1 scale) to specify regions.
 
 ## Documentation
 
