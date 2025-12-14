@@ -80,23 +80,6 @@ Add new files and reference them with `@filename.md` in CLAUDE.md:
 @MY_CUSTOM_RULES.md
 ```
 
-## Migration from SuperClaude
-
-If migrating from a more complex setup:
-
-1. This config intentionally removes:
-   - Persona system (trust Claude's native capabilities)
-   - Wave orchestration (just say "break into phases")
-   - Complexity scoring (not a real feature)
-   - Mandatory confirmation phrases (token waste)
-
-2. Key behaviors preserved:
-   - Security rules (no secrets, verification)
-   - No flattery/agreement phrases
-   - Date awareness for web searches
-   - GitHub access rules for private orgs
-   - Documentation maintenance
-
 ## References
 
 - [Claude Code Best Practices](https://www.anthropic.com/engineering/claude-code-best-practices)
