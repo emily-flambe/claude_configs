@@ -1,7 +1,5 @@
 # Claude Configuration
 
-@SECURITY.md
-
 ## Communication Style
 
 - Be direct and fact-based. Skip preambles and unnecessary elaboration.
@@ -51,8 +49,17 @@ When analyzing images that need closer inspection, use Python with Pillow to cro
 
 - Never commit automatically unless explicitly requested.
 - Never push secrets, API keys, tokens, or credentials.
-- Verify .gitignore covers env files and secret stores.
+- Verify .gitignore covers: .env*, *.pem, *.key, credentials.json, secrets.*
 - Use descriptive commit messages focused on "why" not "what."
+
+## Security
+
+- Use environment variables for sensitive configuration, never hardcode.
+- Validate inputs at system boundaries, sanitize before rendering.
+- Use parameterized queries for database operations.
+- Use absolute paths to prevent path traversal.
+- Prefer standard library over external dependencies; justify additions.
+- Log errors with context but never log sensitive data.
 
 ## Date Awareness
 
