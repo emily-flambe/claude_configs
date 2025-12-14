@@ -1,20 +1,15 @@
 #!/bin/bash
-# Install Claude configs by symlinking to ~/.claude/
+# Install Claude config by symlinking to ~/.claude/
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CLAUDE_DIR="$HOME/.claude"
 
-echo "Installing Claude configs from: $SCRIPT_DIR"
-echo "Target directory: $CLAUDE_DIR"
-echo
+echo "Installing Claude config from: $SCRIPT_DIR"
 
 # Create ~/.claude if it doesn't exist
-if [ ! -d "$CLAUDE_DIR" ]; then
-    echo "Creating $CLAUDE_DIR..."
-    mkdir -p "$CLAUDE_DIR"
-fi
+mkdir -p "$CLAUDE_DIR"
 
 # Backup existing CLAUDE.md if it exists and is not a symlink
 if [ -f "$CLAUDE_DIR/CLAUDE.md" ] && [ ! -L "$CLAUDE_DIR/CLAUDE.md" ]; then
@@ -23,26 +18,11 @@ if [ -f "$CLAUDE_DIR/CLAUDE.md" ] && [ ! -L "$CLAUDE_DIR/CLAUDE.md" ]; then
     mv "$CLAUDE_DIR/CLAUDE.md" "$BACKUP"
 fi
 
-# Remove existing symlinks
-for file in CLAUDE.md SECURITY.md SNOWFLAKE.md; do
-    if [ -L "$CLAUDE_DIR/$file" ]; then
-        echo "Removing existing symlink: $CLAUDE_DIR/$file"
-        rm "$CLAUDE_DIR/$file"
-    fi
-done
+# Remove existing symlink if present
+[ -L "$CLAUDE_DIR/CLAUDE.md" ] && rm "$CLAUDE_DIR/CLAUDE.md"
 
-# Create symlinks
-echo
-echo "Creating symlinks..."
-for file in CLAUDE.md SECURITY.md SNOWFLAKE.md; do
-    if [ -f "$SCRIPT_DIR/$file" ]; then
-        ln -sf "$SCRIPT_DIR/$file" "$CLAUDE_DIR/$file"
-        echo "  $file -> $SCRIPT_DIR/$file"
-    fi
-done
+# Create symlink
+ln -sf "$SCRIPT_DIR/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
+echo "Linked: CLAUDE.md -> $SCRIPT_DIR/CLAUDE.md"
 
-echo
-echo "Installation complete!"
-echo
-echo "Your Claude Code configuration is now linked to this repository."
-echo "Changes to files here will automatically apply to Claude Code."
+echo "Done."
