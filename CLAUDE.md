@@ -53,6 +53,7 @@ When analyzing images that need closer inspection, use Python with Pillow to cro
 - Update existing docs when changes affect: public APIs, configuration, setup steps, environment variables, CLI commands, or user-facing behavior.
 - Skip doc updates for: internal refactors, minor bug fixes, code style changes, or implementation details.
 - Prefer fixing outdated docs over creating new ones.
+- Never create or maintain file/directory listings in documentation. These go stale immediately and add maintenance burden. Let users explore the codebase directly.
 
 ## Git Workflow
 
