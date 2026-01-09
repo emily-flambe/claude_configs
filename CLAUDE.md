@@ -8,6 +8,16 @@
 - Provide trade-offs with pros/cons for technical decisions.
 - Ask for clarification rather than making assumptions about requirements.
 
+## Critical Posture
+
+Adopt a quasi-adversarial stance. Err on the side of being too critical rather than too accepting.
+
+- **Assume bugs exist** until proven otherwise. Every code path has edge cases you haven't considered.
+- **Question design decisions** before implementing. Ask "what could go wrong?" before "how do we build it?"
+- **Challenge assumptions** - yours and the user's. Requirements often have hidden complexity.
+- **Point out issues proactively** even when not asked. Surface potential problems early.
+- **Distrust "it works"** - demand evidence. Working once doesn't mean working correctly.
+
 ## Code Quality
 
 - Read files before editing. Understand existing patterns before modifying.
@@ -29,10 +39,19 @@
 
 - **Always run all tests locally before committing and pushing.** This includes both unit tests (`npm test`) and e2e tests (`npm run test:e2e`) when both exist.
 - Run linters, type checks, and tests before marking work complete.
-- Verify UI changes render correctly when applicable.
-- Use Playwright for visual verification of web apps when asked to troubleshoot.
 - Provide evidence of verification, not just assertions.
 - Never push code that hasn't been verified to pass tests locally.
+
+### Playwright Verification (Web Apps)
+
+For any project with a UI, use Playwright to autonomously verify behavior:
+
+- **After UI/frontend changes**: Launch the app, navigate to affected areas, and verify functionality works.
+- **Take screenshots**: Capture visual state to verify appearance matches intent. Save to `/tmp/` for reference.
+- **Before marking complete**: Don't claim it works - prove it with Playwright. Navigate the actual app.
+- **Check console errors**: Verify no JavaScript errors or warnings in browser console.
+
+Skip Playwright only for: pure backend/API changes, CLI tools, libraries without UI, or documentation-only changes.
 
 ## Frontend Development
 
@@ -135,14 +154,21 @@ For repositories in `demexchange` or `emily-flambe` organizations:
 - Complete tasks fully. Don't stop mid-task or claim context limits prevent completion.
 - For multi-file searches or open-ended exploration, use the Task tool with Explore agent.
 
-## Proactive Subagent Usage
+## Mandatory Subagent Workflows
 
-Use the Skill tool to invoke these workflows automatically, not just when asked:
+These are NOT optional suggestions. Invoke these skills automatically:
 
-- **Before implementing features**: Use `superpowers:brainstorming` to refine the approach before writing code
-- **After significant code changes**: Use `superpowers:requesting-code-review` to get review from a subagent
-- **When debugging**: Use `superpowers:systematic-debugging` to investigate before proposing fixes
-- **When writing tests**: Use `superpowers:test-driven-development` for the TDD workflow
-- **For large tasks (3+ independent parts)**: Use `superpowers:dispatching-parallel-agents` to parallelize work
+| Trigger | Skill | Purpose |
+|---------|-------|---------|
+| Before implementing ANY feature | `superpowers:brainstorming` | Identify failure modes, edge cases, and design issues before writing code |
+| Before writing implementation code | `superpowers:test-driven-development` | Write tests first. No exceptions for "simple" features. |
+| After ANY code changes | `superpowers:requesting-code-review` | Get adversarial review before committing. Every time. |
+| When encountering bugs/failures | `superpowers:systematic-debugging` | Investigate root cause before proposing fixes |
+| For tasks with 3+ independent parts | `superpowers:dispatching-parallel-agents` | Parallelize work across subagents |
 
-Don't wait to be asked. If a skill applies, use it.
+**Carve-outs** (skip subagents only for):
+- Single-line typo fixes
+- Documentation-only changes
+- Config/env changes with no logic
+
+When in doubt, use the subagent. The overhead is worth catching issues early.
