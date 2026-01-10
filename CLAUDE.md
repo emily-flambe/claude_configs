@@ -38,6 +38,8 @@ Adopt a quasi-adversarial stance. Err on the side of being too critical rather t
 
 ## Verification
 
+- **Run verification commands yourself** - don't ask the user to run tests, linters, or type checks. Execute them directly and report results. This applies to: test suites, build commands, lint/format checks, type checking, and similar read-only verification.
+- **Exceptions requiring user confirmation**: destructive or stateful operations like `terraform apply`, production database migrations, deployment scripts, or commands that cost money/resources.
 - **Always run all tests locally before committing and pushing.** This includes both unit tests (`npm test`) and e2e tests (`npm run test:e2e`) when both exist.
 - Run linters, type checks, and tests before marking work complete.
 - Provide evidence of verification, not just assertions.
