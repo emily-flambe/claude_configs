@@ -4,7 +4,7 @@ Streamlined Claude Code configuration based on [Anthropic's best practices](http
 
 ## Design Principles
 
-- **Keep it concise**: ~90 lines (research shows LLMs reliably follow ~150-200 instructions; Claude Code's system prompt uses ~50)
+- **Keep it concise**: LLMs follow fewer instructions more reliably. Front-load the most important rules.
 - **Universal applicability**: Only rules that apply to all sessions
 - **Single file**: No unnecessary indirection or modularization
 - **Explanations over commands**: Context for why, not just what
