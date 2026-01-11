@@ -96,12 +96,17 @@ When analyzing images that need closer inspection, use Python with Pillow to cro
 git fetch origin
 git worktree add ../projectname-feature-x -b feature-x origin/main
 cd ../projectname-feature-x
+
+# 2. Copy gitignored environment files from main worktree
+cp ../projectname/.env* . 2>/dev/null || true
+cp ../projectname/.dev.vars . 2>/dev/null || true
+
 npm install  # or equivalent
 # Initialize databases if needed (e.g., npm run db:init)
 
-# 2. Do all feature work in the worktree
-# 3. Create PR from the worktree
-# 4. After merge, clean up:
+# 3. Do all feature work in the worktree
+# 4. Create PR from the worktree
+# 5. After merge, clean up:
 cd ../projectname
 git worktree remove ../projectname-feature-x
 ```
@@ -127,6 +132,7 @@ git worktree prune             # Remove stale references
 
 **Remember:**
 - Each worktree needs its own `npm install`
+- Copy gitignored files (.env*, .dev.vars) from main worktree
 - Use different ports for dev servers (`PORT=8788 npm run dev`)
 - Rebase regularly to avoid merge conflicts
 
