@@ -163,6 +163,8 @@ When asked to write a ralph-loop prompt, gather this information first (ask if n
 
 ### Prompt Template
 
+**Output must start with the command** - no markdown headers, no code blocks. User will paste directly into Claude Code.
+
 ```
 /ralph-wiggum:ralph-loop "[Task]. [Source of truth].
 
