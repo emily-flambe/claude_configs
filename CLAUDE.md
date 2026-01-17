@@ -55,7 +55,7 @@ Adopt a quasi-adversarial stance. Err on the side of being too critical rather t
 - Prefer editing existing files over creating new ones.
 - Keep solutions minimal. Only make changes that are directly requested.
 - Avoid over-engineering: no speculative features, unnecessary abstractions, or "just in case" error handling.
-- Follow existing project conventions (import styles, naming, structure).
+- **Follow established patterns** in the current repository. If the user references another repo for comparison, follow patterns from that repo too. Study existing code structure, naming conventions, import styles, error handling patterns, and test organization before writing new code.
 - Verify library versions via npm/pypi rather than relying on training data.
 - Verify API usage against official docs when uncertain—training data may be outdated.
 
