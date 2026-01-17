@@ -112,6 +112,7 @@ For projects with UI, use Playwright to verify behavior autonomously:
 - Update docs when changes affect: public APIs, config, setup, env vars, CLI, user-facing behavior.
 - Skip for: internal refactors, minor fixes, implementation details.
 - Never create file/directory listings in docs—they go stale immediately.
+- **No timeline estimates.** Never include time estimates, durations, or predictions like "takes ~5 minutes" or "should complete in 2 hours" in docs, comments, or commit messages. They're always wrong and go stale.
 
 ## Git Workflow
 
