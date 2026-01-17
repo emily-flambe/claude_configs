@@ -28,6 +28,7 @@ This config is designed to work with the following Claude Code plugins:
 | Plugin | Source | Purpose |
 |--------|--------|---------|
 | [superpowers](https://github.com/obra/superpowers) | superpowers-marketplace | TDD, debugging, code review, planning workflows |
+| [ralph-wiggum](https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum) | anthropics-claude-code | Iterative development loops with automatic retry until completion |
 | frontend-design | claude-plugins-official | Distinctive UI development, avoiding generic aesthetics |
 | pr-review-toolkit | claude-plugins-official | Comprehensive PR review with specialized agents |
 | playwright | claude-plugins-official | Browser automation and visual verification |
@@ -39,6 +40,9 @@ Install marketplace plugins:
 ```bash
 /plugin marketplace add obra/superpowers-marketplace
 /plugin install superpowers@superpowers-marketplace
+
+/plugin marketplace add anthropics/claude-code
+/plugin install ralph-wiggum@anthropics-claude-code
 ```
 
 Install official plugins:

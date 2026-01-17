@@ -64,11 +64,41 @@ Adopt a quasi-adversarial stance. Err on the side of being too critical rather t
 - New features need appropriate tests. Keep them focused and proportional.
 - Test the critical path and edge cases, not every possible permutation.
 
-## Verification
+## Verification & CLI Usage
 
-- **Run verification yourself** - execute tests, linters, type checks directly. Don't ask the user.
-- **Exceptions**: destructive operations (terraform apply, prod migrations, deployments).
-- Run all tests locally before committing. Provide evidence, not assertions.
+**Run commands yourself. Never ask the user to run something you can run.**
+
+### CLIs You Have Access To - USE THEM
+
+Run these directly with Bash tool (never ask the user):
+- `gh` - GitHub CLI (PRs, issues, repo operations)
+- `wrangler` - Cloudflare Workers CLI
+- `npm`, `pnpm`, `yarn` - package managers
+- `npx` - package runner
+- `git` - all git operations
+- `docker`, `docker-compose` - container operations
+- Any CLI installed in the project
+
+### Anti-patterns (NEVER do these)
+
+- "Could you run..." - NO. Run it yourself.
+- "Try running..." - NO. Run it yourself.
+- "You'll need to execute..." - NO. Run it yourself.
+- "Please run X" - NO. Run it yourself.
+- Suggesting a command without executing it - NO. Just do it.
+
+### Only ask the user to run commands when:
+
+- It requires interactive authentication you can't provide (e.g., browser OAuth flow)
+- It's a production deployment (not staging/dev)
+- It explicitly modifies billing or destroys infrastructure (terraform destroy, etc.)
+
+Everything else: just run it.
+
+### General verification
+
+- Execute tests, linters, type checks directly. Provide evidence, not assertions.
+- Run all tests locally before committing.
 
 ### Playwright (Web Apps)
 
@@ -116,3 +146,50 @@ Skip worktrees for: quick PR fixes, read-only exploration, or when told to work 
 ## Private Repos (demexchange, emily-flambe)
 
 Use git CLI commands instead of WebFetch or gh api. Read files locally.
+
+## Ralph Loop Prompts
+
+When asked to write a ralph-loop prompt, gather this information first (ask if not provided):
+
+| Required | Question |
+|----------|----------|
+| Task | What needs to be done? |
+| Verification | What command proves success? (e.g., `npm run test:e2e`) |
+| Environment parity | Does local match CI/prod? If not, how to test both? |
+| Acceptance criteria | What MUST be true? (e.g., "GitHub Actions E2E check is green") |
+| Source of truth | Local output or CI? (usually CI) |
+| Key files | Where will fixes likely happen? |
+| Max iterations | Safety limit (default: 25) |
+
+### Prompt Template
+
+```
+/ralph-wiggum:ralph-loop "[Task]. [Source of truth].
+
+Steps each iteration:
+1. [Primary verification command]
+2. [Secondary verification if environments differ]
+3. [Push/commit if applicable]
+4. [Check CI/prod status if applicable]
+5. If [success], output <done>SIGNAL</done>
+6. If fail, [how to get error details]
+7. Fix based on [which output to trust]
+
+Context:
+- [Environment differences]
+- [Key files]
+- [Tech stack gotchas]
+
+CRITICAL: [Most important acceptance criterion - what actually determines success]
+
+Output <done>SIGNAL</done> when [specific conditions].
+
+If stuck after N attempts on same error, [escape behavior]." --completion-promise "SIGNAL" --max-iterations N
+```
+
+### Common Failure Mode
+
+Local tests pass but CI fails due to environment differences. Always:
+1. Identify how CI runs differently (env vars, flags, database)
+2. Include CI verification step: `gh pr checks | grep 'Test Name'`
+3. Make CI the source of truth, not local results
