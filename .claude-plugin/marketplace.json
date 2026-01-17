@@ -1,0 +1,22 @@
+{
+  "name": "emily-flambe-plugins",
+  "owner": {
+    "name": "emily-flambe"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for iterative development workflows"
+  },
+  "plugins": [
+    {
+      "name": "ralph-prompt",
+      "source": "./ralph-prompt-plugin",
+      "description": "Generate well-structured ralph-wiggum loop prompts for iterative development tasks",
+      "version": "1.0.0",
+      "author": {
+        "name": "emily-flambe"
+      },
+      "homepage": "https://github.com/emily-flambe/claude-configs",
+      "license": "MIT"
+    }
+  ]
+}
