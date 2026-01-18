@@ -166,26 +166,29 @@ When asked to write a ralph-loop prompt, gather this information first (ask if n
 
 **Output must start with the command** - no markdown headers, no code blocks. User will paste directly into Claude Code.
 
+**MANDATORY: Every prompt MUST include commit and PR steps.** A task is not complete until a PR exists and CI passes.
+
 ```
 /ralph-wiggum:ralph-loop "[Task]. [Source of truth].
 
 Steps each iteration:
 1. [Primary verification command]
 2. [Secondary verification if environments differ]
-3. [Push/commit if applicable]
-4. [Check CI/prod status if applicable]
-5. If [success], output <done>SIGNAL</done>
-6. If fail, [how to get error details]
-7. Fix based on [which output to trust]
+3. Commit changes: git add -A && git commit -m '[describe changes]'
+4. Push and open/update PR: git push -u origin HEAD && gh pr create --fill || gh pr view
+5. Check CI: gh pr checks --watch
+6. If CI green, output <done>SIGNAL</done>
+7. If CI fails: gh run view --log-failed
+8. Fix based on CI errors and repeat
 
 Context:
 - [Environment differences]
 - [Key files]
 - [Tech stack gotchas]
 
-CRITICAL: [Most important acceptance criterion - what actually determines success]
+CRITICAL: Task is only complete when a PR exists AND CI passes. [Additional acceptance criteria]
 
-Output <done>SIGNAL</done> when [specific conditions].
+Output <done>SIGNAL</done> when PR exists and CI passes.
 
 If stuck after N attempts on same error, [escape behavior]." --completion-promise "SIGNAL" --max-iterations N
 ```
