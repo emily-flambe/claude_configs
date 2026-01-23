@@ -58,6 +58,43 @@ Install official plugins:
 
 The CLAUDE.md includes triggers for proactive subagent usage with superpowers skills.
 
+## Custom Agents
+
+This config includes custom agents in `.claude/agents/` that implement an adversarial development workflow and address common failure modes.
+
+### Adversarial Workflow Agents
+
+| Agent | Role | Succeeds By |
+|-------|------|-------------|
+| `implementer` | Writes code | Meeting requirements, minimal changes, following patterns |
+| `tester` | Breaks code | Finding bugs, edge cases, writing failing tests |
+| `reviewer` | Final gate | Blocking bad code, enforcing standards |
+
+### Utility Agents
+
+| Agent | Purpose |
+|-------|---------|
+| `explorer` | Researches codebases autonomously—counters "I would need to look at..." helplessness |
+| `doc-verifier` | Verifies API documentation before implementation—prevents hallucinations |
+| `test-runner` | Runs tests, analyzes failures, fixes implementations (not tests) |
+| `documentation-generator` | Generates docs from actual code (uses Opus model) |
+| `debugger` | Systematic debugging with evidence before fixes |
+| `security-auditor` | OWASP Top 10 checks, credential scanning, injection detection |
+
+### Installation
+
+Copy the agents directory to your global Claude config:
+
+```bash
+cp -r .claude/agents ~/.claude/
+```
+
+Or symlink for automatic updates:
+
+```bash
+ln -sf ~/Documents/GitHub/claude-configs/.claude/agents ~/.claude/agents
+```
+
 ## Project-Specific Rules
 
 For project-specific configuration, create a `CLAUDE.md` in the project root:

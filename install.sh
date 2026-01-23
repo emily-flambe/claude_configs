@@ -21,8 +21,22 @@ fi
 # Remove existing symlink if present
 [ -L "$CLAUDE_DIR/CLAUDE.md" ] && rm "$CLAUDE_DIR/CLAUDE.md"
 
-# Create symlink
+# Create symlink for CLAUDE.md
 ln -sf "$SCRIPT_DIR/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
 echo "Linked: CLAUDE.md -> $SCRIPT_DIR/CLAUDE.md"
+
+# Handle agents directory
+if [ -d "$CLAUDE_DIR/agents" ] && [ ! -L "$CLAUDE_DIR/agents" ]; then
+    BACKUP="$CLAUDE_DIR/agents.backup.$(date +%Y%m%d_%H%M%S)"
+    echo "Backing up existing agents to: $BACKUP"
+    mv "$CLAUDE_DIR/agents" "$BACKUP"
+fi
+
+# Remove existing symlink if present
+[ -L "$CLAUDE_DIR/agents" ] && rm "$CLAUDE_DIR/agents"
+
+# Create symlink for agents
+ln -sf "$SCRIPT_DIR/.claude/agents" "$CLAUDE_DIR/agents"
+echo "Linked: agents -> $SCRIPT_DIR/.claude/agents"
 
 echo "Done."
