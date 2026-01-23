@@ -29,6 +29,7 @@ This config is designed to work with the following Claude Code plugins:
 |--------|--------|---------|
 | [superpowers](https://github.com/obra/superpowers) | superpowers-marketplace | TDD, debugging, code review, planning workflows |
 | [ralph-wiggum](https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum) | anthropics-claude-code | Iterative development loops with automatic retry until completion |
+| context7 | claude-plugins-official | Live documentation lookup - prevents outdated API hallucinations |
 | frontend-design | claude-plugins-official | Distinctive UI development, avoiding generic aesthetics |
 | pr-review-toolkit | claude-plugins-official | Comprehensive PR review with specialized agents |
 | playwright | claude-plugins-official | Browser automation and visual verification |
